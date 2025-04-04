@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #FFCDCD;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inder', sans-serif;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f6f7e9;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+        
+        .logo img {
+            width: 100px;
+            height: auto;
+        }
+        
+        .search-bar input {
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+            margin-right: 20px;
+        }
+        
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            margin-right: 30px;
+        }
+        #cart-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: black; /* Adjust as needed */
+            padding: 8px 12px; /* Match button spacing */
+        }
+        
+        #cart-icon .cart-item-count {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            width: 18px;
+            height: 18px;
+            background: #e35f26;
+            border-radius: 50%;
+            font-size: 12px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .header-buttons button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .header-buttons button i {
+            margin-right: 8px;
+        }
+        
+        .header-buttons button:hover {
+            background-color: #555;
+        }
+        
+        .header-buttons button:nth-child(3) {
+            background-color: #007bff;
+        }
+        
+        .header-buttons button:nth-child(3):hover {
+            background-color: #0056b3;
+        }
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .sale-section {
+            background-color: #FFFFFF;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .sale-msg {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+            font-size: 20px;
+            color: #000000;
+            font-weight: bold;
+        }
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        .product-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background-color: #FFCDCD;
+        }
+        .product{
+            position: relative;  
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .title {
+            font-size: 16px;
+            margin: 10px 0 5px 0;
+            font-weight: bold;
+        }
+        .price {
+            color: #FF5733;
+            font-size: 14px;
+        }
+        .mrp {
+            font-size: 12px;
+            text-decoration: line-through;
+            color: #555;
+        }
+        .stars {
+            color: gold;
+            font-size: 16px;
+        }
+        .like-btn {
+            position: absolute;
+            top: 15px;  
+            right: 15px;
+            font-size: 20px;
+            color: rgb(255, 128, 128);
+            background: white;
+            padding: 8px; 
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            opacity: 0.8;
+        }
+        .like-btn:hover {
+            transform: scale(1.2);
+            color: rgb(247, 24, 24);
+            opacity: 1;
+        }
+        .cart-btn {
+            background: #E98074;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s ease-in-out;
+        }
+        .cart-btn:hover {
+            background: rgb(119, 13, 13);
+        }
+        .footer {
+            background-color: #CB9B9B;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            color: #000;
+        }
+        .footer-logo img {
+            width: 100px;
+        }
+        .footer-language select {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            font-family: 'Inder', sans-serif;
+        }
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+        }
+        .footer-icons a {
+            margin: 0 15px;
+            color: #000;
+            font-size: 24px;
+            text-decoration: none;
+        }
+        .footer-icons a:hover {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.jpg" alt="Handcrafts Shop Logo">
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search products...">
+        </div>
+        <div class="header-buttons">
+            <button><i class="fas fa-home"></i> Home</button>
+            <button><i class="fas fa-list"></i> Menu</button>
+            <button><i class="fas fa-user"></i> Login</button>
+            <button><i class="fas fa-paint-brush"></i> Sell Your Art</button>
+            <a href="cart.html" id="cart-link">
+                <div id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-item-count">0</span>
+                </div>
+            </a>
+        </div>
+    </header>
+    <img src="TOP.jpg" alt="Gallery Image">
+    <div class="sale-section">
+        <div class="sale-msg">
+            ON SALE | ON SALE | ON SALE | ON SALE | ON SALE | ON SALE | ON SALE | ON SALE | ON SALE ON SALE | ON SALE | ON SALE | ON SALE | ON SALE | ON SALE
+        </div>
+    </div>
+    
+    <section class="product-gallery">
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="hairband.jpg" alt="Sunflower Plain Hairband for Girls">
+            <h3 class="title">Sunflower Plain Hairband for Girls</h3>
+            <p class="price">Offer price: ₹139</p>
+            <p class="mrp">M.R.P: ₹275</p>
+            <p class="stars">⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="pouch.jpg" alt="Leather pouches">
+            <h3 class="title">Leather pouches for pen or pencil holder</h3>
+            <p class="price">Offer price: ₹236</p>
+            <p class="mrp">M.R.P: ₹499</p>
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="stickers.jpg" alt="Cool glossy stickers">
+            <h3 class="title">Cool glossy stickers, Laminated</h3>
+            <p class="price">Offer price: ₹749</p>
+            <p class="mrp">M.R.P: ₹1999</p>
+            <p class="stars">⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+    
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="bowl.jpg" alt="Ceramic Storage Bowl">
+            <h3 class="title">Ceramic Storage Bowl with Lid</h3>
+            <p class="price">Offer price: ₹749</p>
+            <p class="mrp">M.R.P: ₹1495</p>
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="plates.jpg" alt="Ceramic Snacks Plate Combo">
+            <h3 class="title">Ceramic Snacks Plate Combo (4Pcs)</h3>
+            <p class="price">Offer price: ₹899</p>
+            <p class="mrp">M.R.P: ₹1499</p>
+            <p class="stars">⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="books.jpg" alt="A5 Cute Notebook">
+            <h3 class="title">A5 Cute Notebook, Ruled - 160 pages</h3>
+            <p class="price">Offer price: ₹407</p>
+            <p class="mrp">M.R.P: ₹899</p>
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="tapes.jpg" alt="Ideal WASHI Tape Set for Designs">
+            <h3 class="title">Ideal WASHI Tape Set for Designs</h3>
+            <p class="price">Offer price: ₹159</p>
+            <p class="mrp">M.R.P: ₹599</p>
+            <p class="stars">⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="keychains.jpg" alt="Keychains or Keyrings - Set of 5">
+            <h3 class="title">Keychains or Keyrings - Set of 5</h3>
+            <p class="price">Offer price: ₹249</p>
+            <p class="mrp">M.R.P: ₹499</p>
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="painting.jpg" alt="Lord Ganesh Wall Painting 18X18 in">
+            <h3 class="title">Lord Ganesh Wall Painting 18X18 in</h3>
+            <p class="price">Offer price: ₹349</p>
+            <p class="mrp">M.R.P: ₹795</p>
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="pens.jpg" alt="Aesthetic Cute Bubble Highlighters">
+            <h3 class="title">Aesthetic Cute Bubble Highlighters</h3>
+            <p class="price">Offer price: ₹179</p>
+            <p class="mrp">M.R.P: ₹265</p>
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="pots.jpg" alt="Ceramic Pots with Lids - Set of 3">
+            <h3 class="title">Ceramic Pots with Lids - Set of 3</h3>
+            <p class="price">Offer price: ₹399</p>
+            <p class="mrp">M.R.P: ₹799</p>
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product">
+            <i class="fas fa-heart like-btn"></i>
+            <img src="keyrings.jpg" alt="Handcrafted Keyrings - Set of 4">
+            <h3 class="title">Handcrafted Keyrings - Set of 4</h3>
+            <p class="price">Offer price: ₹179</p>
+            <p class="mrp">M.R.P: ₹299</p>
+            <p class="stars">⭐⭐⭐⭐</p>
+            <button class="cart-btn">Add to Cart</button>
+        </div>
+        
+    </section>
+    
+    <div class="footer">
+        <div class="footer-logo">
+            <img src="logo.jpg" alt="VIORA Logo">
+        </div>
+        <div class="footer-language">
+            <label for="language">Select language</label>
+            <select id="language">
+                <option value="english">English</option>
+                <option value="telugu">Telugu</option>
+                <option value="hindi">Hindi</option>
+            </select>
+        </div>
+        <div class="footer-text">
+            100% ORIGINAL guarantee for all products at viora<br>
+            Return within 14 days of receiving your order
+        </div>
+        <div class="footer-icons">
+            <a href="#"><i class="fas fa-envelope"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+    </div>
+</body>
+</html>
